@@ -103,10 +103,10 @@ if __name__ == '__main__':
     M2 = float(M2)
     max = max(M0, M1, M2)
     if max == M2:
-        print('D')
+        print('D', end='')
     elif max == M0 and M0 == M1:
-        print('D')
+        print('D', end='')
     elif max == M0:
-        print('H')
+        print('H', end='')
     else:
-        print('A')
+        print('A', end='')
