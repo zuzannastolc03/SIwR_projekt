@@ -4,6 +4,18 @@ from pgmpy.models import BayesianModel
 from pgmpy.factors.discrete import TabularCPD
 from pgmpy.inference import VariableElimination
 
+# TODO Jakość kodu (1/2)
+
+# TODO Skuteczność 0.333 (0/3)
+# TODO [0.56, 1.00] - 3.0
+# TODO [0.53, 0.56) - 2.5
+# TODO [0.50, 0.53) - 2.0
+# TODO [0.47, 0.50) - 1.5
+# TODO [0.44, 0.47) - 1.0
+# TODO [0.41, 0.44) - 0.5
+# TODO [0.00, 0.41) - 0.0
+
+# TODO Niepotrzebnie te tablice są globalne.
 TeamList = [] #lista wszystkich drużyn z pliku
 HomeTeam = [] #1 home team
 AwayTeam = [] #2 away team
@@ -62,6 +74,7 @@ if __name__ == '__main__':
         EffectivenessHome[i] = PointsListHome[i] / (3 * NumberOfGamesHome[i])
     for i in range(len(EffectivenessAway)):
         EffectivenessAway[i] = PointsListAway[i] / (3 * NumberOfGamesAway[i])
+    # TODO W ten sposób na wyjście zostanie przekazany ciąg znaków "Proszę wprowadzić datę spotkania " (-1).
     date = input('Proszę wprowadzić datę spotkania ')
     home_team = input('Proszę wprowadzić nazwę drużyny grającej u siebie ')
     away_team = input('Proszę wprowadzić nazwę drużyny grającej na wyjeździe ')
@@ -77,11 +90,15 @@ if __name__ == '__main__':
         if TeamList[ateam] == away_team:
             away = ateam
 
+    # TODO Model i dobór parametrów (3/5)
+
     football_model = BayesianModel([('HomeTeam', 'Match'),
                                    ('AwayTeam', 'Match')])
     #CPD(0)-zwycięstwo, CPD(1)-przegrana
     cpd_home_team = TabularCPD('HomeTeam', 2, [[EffectivenessHome[home]], [1.0-EffectivenessHome[home]]])
     cpd_away_team = TabularCPD('AwayTeam', 2, [[EffectivenessAway[away]], [1.0 - EffectivenessAway[away]]])
+    # TODO Chyba lepiej gdyby "HomeTeam" i "AwayTeam" oznaczało np. formę drużyny,
+    # TODO wtedy tutaj mogłyby być inne wartości.
     #CPD(0)-zwycięstwo HT, CPD(1)-zwycięstwo AT, CPD(2)-remis
     cpd_match = TabularCPD('Match', 3, [[0.0, 1.0, 0.0, 0.0],
                                         [0.0, 0.0, 1.0, 0.0],
@@ -90,6 +107,7 @@ if __name__ == '__main__':
     football_model.add_cpds(cpd_home_team, cpd_away_team, cpd_match)
     football_infer = VariableElimination(football_model)
     q = football_infer.query(['Match'], show_progress=False)
+    # TODO Czemu tak, a nie q['Match']?
     Q = str(q)
     result = []
     for i in range(len(Q)):
