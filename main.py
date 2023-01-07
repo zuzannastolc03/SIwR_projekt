@@ -3,18 +3,6 @@ from pgmpy.models import BayesianModel
 from pgmpy.factors.discrete import TabularCPD
 from pgmpy.inference import VariableElimination
 
-# TODO Jakość kodu (1/2)
-
-# TODO Model i dobór parametrów (3/5)
-
-# TODO Skuteczność 0.518 (2/3)
-# TODO [0.56, 1.00] - 3.0
-# TODO [0.53, 0.56) - 2.5
-# TODO [0.50, 0.53) - 2.0
-# TODO [0.47, 0.50) - 1.5
-# TODO [0.44, 0.47) - 1.0
-# TODO [0.41, 0.44) - 0.5
-# TODO [0.00, 0.41) - 0.0
 
 TeamList = [] #lista wszystkich drużyn z pliku
 HomeTeam = [] #1 home team
